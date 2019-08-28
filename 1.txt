@@ -1,0 +1,300 @@
++----------+--------------+------+-----+---------+----------------+
+4 rows in set (0.23 sec)
+
+mysql> describe booktran;
++----------+----------+------+-----+---------+----------------+
+| Field    | Type     | Null | Key | Default | Extra          |
++----------+----------+------+-----+---------+----------------+
+| TrnID    | int(11)  | NO   | PRI | NULL    | auto_increment |
+| TrnDate  | datetime | YES  |     | NULL    |                |
+| BookID   | int(11)  | YES  | MUL | NULL    |                |
+| MemberID | int(11)  | YES  | MUL | NULL    |                |
++----------+----------+------+-----+---------+----------------+
+4 rows in set (0.23 sec)
+
+mysql> describe member;
++----------+-------------------------------------------+------+-----+---------+----------------+
+| Field    | Type                                      | Null | Key | Default | Extra          |
++----------+-------------------------------------------+------+-----+---------+----------------+
+| MemberID | int(11)                                   | NO   | PRI | NULL    | auto_increment |
+| FName    | varchar(20)                               | NO   |     | NULL    |                |
+| MName    | varchar(10)                               | YES  |     | NULL    |                |
+| LName    | varchar(20)                               | NO   |     | NULL    |                |
+| Mem_DOJ  | date                                      | YES  |     | NULL    |                |
+| Email    | varchar(30)                               | YES  | UNI | NULL    |                |
+| Phone    | char(10)                                  | YES  |     | NULL    |                |
+| mem_type | enum('Regular','Silver','Gold','Premium') | YES  |     | NULL    |                |
++----------+-------------------------------------------+------+-----+---------+----------------+
+8 rows in set (0.16 sec)
+
+mysql> select * from member;
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+| MemberID | FName     | MName    | LName    | Mem_DOJ    | Email                        | Phone      | mem_type |
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+|        1 | Ruchika   | Virendra | Gotmare  | 2019-08-27 | ruchikagotmare97@gmail.com   | 7020141667 | Regular  |
+|        2 | Rushikesh | Wasudeo  | Paunikar | 2019-08-27 | rushikesh.paunikar@gmail.com | 9420476499 | Premium  |
+|        3 | Ashwini   | Vasanta  | Dharmik  | 2019-08-27 | ashudharmik05@gmail.com      | 8329886552 | Silver   |
+|        4 | Durgesh   | Kishor   | Patil    | 2019-08-27 | Durgeshp199983@gmail.com     | 8329886552 | Regular  |
++----------+-----------+----------+----------+------------+------------------------------+------------+----------+
+4 rows in set (0.05 sec)
+
+mysql> select name from member
+    -> where memberId =1;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select from member
+    -> where memberId =1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from
+member
+where memberId =1' at line 1
+mysql> select from member
+    -> WHERE MemberID = 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from
+member
+WHERE MemberID = 1' at line 1
+mysql> select name from member
+    -> WHERE MemberID=1;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql>
+mysql> ;
+ERROR:
+No query specified
+
+mysql> ;
+ERROR:
+No query specified
+
+mysql> ;
+ERROR:
+No query specified
+
+mysql> ;
+ERROR:
+No query specified
+
+mysql> SELECT FName
+    -> FROM Member
+    -> WHERE FName = Ruchika;
+ERROR 1054 (42S22): Unknown column 'Ruchika' in 'where clause'
+mysql> SELECT FName
+    -> FROM Member
+    -> WHERE MemberID=1;
++---------+
+| FName   |
++---------+
+| Ruchika |
++---------+
+1 row in set (0.02 sec)
+
+mysql> SELECT MemberID as ID, FName
+    -> From Member WHERE MemberID<3;
++----+-----------+
+| ID | FName     |
++----+-----------+
+|  1 | Ruchika   |
+|  2 | Rushikesh |
++----+-----------+
+2 rows in set (0.02 sec)
+
+mysql> SELECT MemberID as ID, FName
+    -> From Member WHERE MemberID>3;
++----+---------+
+| ID | FName   |
++----+---------+
+|  4 | Durgesh |
++----+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MemberID as ID, FName
+    -> From Member WHERE MemberID!=2;
++----+---------+
+| ID | FName   |
++----+---------+
+|  1 | Ruchika |
+|  3 | Ashwini |
+|  4 | Durgesh |
++----+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT MemberID as ID, FName FROM Member WHERE MemberID <>2;
++----+---------+
+| ID | FName   |
++----+---------+
+|  1 | Ruchika |
+|  3 | Ashwini |
+|  4 | Durgesh |
++----+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT MemberID as ID, FName FROM Member WHERE ID <>2;
+ERROR 1054 (42S22): Unknown column 'ID' in 'where clause'
+mysql> SELECT MemberID as ID, FName FROM Member WHERE MemberID <>2;
++----+---------+
+| ID | FName   |
++----+---------+
+|  1 | Ruchika |
+|  3 | Ashwini |
+|  4 | Durgesh |
++----+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT MemberID, FName FROM Member WHERE MemberID <>2;
++----------+---------+
+| MemberID | FName   |
++----------+---------+
+|        1 | Ruchika |
+|        3 | Ashwini |
+|        4 | Durgesh |
++----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT MemberID as ID, FName FROM Member WHERE MemberID<>2 ORDER BY ID;
++----+---------+
+| ID | FName   |
++----+---------+
+|  1 | Ruchika |
+|  3 | Ashwini |
+|  4 | Durgesh |
++----+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT MemberID as ID, FName FROM Member WHERE MemberID<>2 ORDER BY DESC ID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DESC
+ID' at line 1
+mysql> SELECT MemberID as ID, FName FROM Member WHERE MemberID<>2 ORDER BY ID DESC;
++----+---------+
+| ID | FName   |
++----+---------+
+|  4 | Durgesh |
+|  3 | Ashwini |
+|  1 | Ruchika |
++----+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Book;
++--------+---------------------+---------+---------------+
+| BookID | BookName            | Price   | Author        |
++--------+---------------------+---------+---------------+
+|      1 | Think and Grow Rich |  250.00 | Napolean Hill |
+|      2 | Dream 2020          |  350.00 | Hill          |
+|      3 | Target2020          | -450.00 | shann         |
+|      4 | Life of Pie         |    NULL | Ruchika       |
+|      5 | HTML5               |    NULL | ABCD          |
++--------+---------------------+---------+---------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE 'A%';
+Empty set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '%A%';
++--------+---------------------+---------+
+| BookID | BookName            | Price   |
++--------+---------------------+---------+
+|      1 | Think and Grow Rich |  250.00 |
+|      2 | Dream 2020          |  350.00 |
+|      3 | Target2020          | -450.00 |
++--------+---------------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName = 'A';
+Empty set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName = 'T';
+Empty set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE 'T';
+Empty set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '%T%';
++--------+---------------------+---------+
+| BookID | BookName            | Price   |
++--------+---------------------+---------+
+|      1 | Think and Grow Rich |  250.00 |
+|      3 | Target2020          | -450.00 |
+|      5 | HTML5               |    NULL |
++--------+---------------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '%i%';
++--------+---------------------+--------+
+| BookID | BookName            | Price  |
++--------+---------------------+--------+
+|      1 | Think and Grow Rich | 250.00 |
+|      4 | Life of Pie         |   NULL |
++--------+---------------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '%2%';
++--------+------------+---------+
+| BookID | BookName   | Price   |
++--------+------------+---------+
+|      2 | Dream 2020 |  350.00 |
+|      3 | Target2020 | -450.00 |
++--------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName = 'HTML5';
++--------+----------+-------+
+| BookID | BookName | Price |
++--------+----------+-------+
+|      5 | HTML5    |  NULL |
++--------+----------+-------+
+1 row in set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE 'D%';
++--------+------------+--------+
+| BookID | BookName   | Price  |
++--------+------------+--------+
+|      2 | Dream 2020 | 350.00 |
++--------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '%D';
+Empty set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '%h';
++--------+---------------------+--------+
+| BookID | BookName            | Price  |
++--------+---------------------+--------+
+|      1 | Think and Grow Rich | 250.00 |
++--------+---------------------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '%h';
++--------+---------------------+--------+
+| BookID | BookName            | Price  |
++--------+---------------------+--------+
+|      1 | Think and Grow Rich | 250.00 |
++--------+---------------------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '%for%';
+Empty set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '____';
+Empty set (0.00 sec)
+
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE %and%';
+    '> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '%and%';
+    '> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '%and%;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '%and%
+';
+SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '%and%';
+SE' at line 1
+mysql> ;
+ERROR:
+No query specified
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> SELECT BookID, BookName, Price FROM Book WHERE BookName LIKE '%and%;
+    '> ;
+    '>
+    '>
+    '> ;
+    '>

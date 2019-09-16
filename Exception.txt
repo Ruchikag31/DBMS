@@ -1,0 +1,304 @@
+/*1)Create abstract base class "Game" with 'play()' as abstract method. 
+From that derive following classes. Football,Cricket,Tennis. Create a class called as 
+"GamesDemo" (public class)inside a main method create an array of "Game" (3 elements)
+Store objects of Football,Cricket and Tennis respectively.
+Now traverse the array and call that Cricket's play() method.*/
+
+package exception;
+abstract class Game
+{
+	public abstract void play();
+}
+
+class Football extends Game
+{
+
+	@Override
+	public void play()
+	{
+		// TODO Auto-generated method stub
+		System.out.println("Play Football");
+	}
+	
+}
+class Cricket extends Game
+{
+
+	@Override
+	public void play()
+	{
+		// TODO Auto-generated method stub
+		System.out.println("Play Cricket");
+	}
+	
+}
+class Tennis extends Game
+{
+
+	@Override
+	public void play()
+	{
+		// TODO Auto-generated method stub
+		System.out.println("Play Tennis");
+	}
+	
+}
+public class GamesDemo
+{
+	public static void main(String[] args) 
+	{
+		Game[] arr= new Game[3];
+		arr[0] = new Football();
+		arr[1] = new Cricket();
+		arr[2] = new Tennis();
+		
+		for(int i=0;i<arr.length;i++)
+		{
+			arr[i].play();
+		}
+	}
+}
+***********************************************************************************************************************************************************************
+
+/*Que 2) define your exception class by name "MyArithException"(MyArithException.java)
+define class "Calculator"   (Calculator.java) In this class define a function,which 
+will accept an int and return double of it. e.g int caldouble(int). This function 
+will check an int which is passed to it. It will throw exception if 0 is passed or 
+negative passed in case of 0 caller of this method should get error message "Zero not allowed" 
+in case of negative caller of this method should get error message "negative not allowed"
+In case of positive value it should simply return the double value.
+
+Now define class "MyCalcApp" (MyCalcApp.java)
+In this class you accept a number from user and pass that no. to
+caldouble() method which is mentioned above.
+*/
+
+package exception;
+
+public class MyArithException extends Exception
+{
+
+	public MyArithException(String str)
+	{
+		super(str);
+	}
+}
+
+
+package exception;
+
+public class Calculator
+{
+	int caldouble(int k) throws MyArithException
+	{
+		if(k==0)
+		{
+			throw new MyArithException("Zero not allowed");
+		}
+		else if(k<0)
+		{
+			throw new MyArithException("Negative not allowed");
+		}
+		return k*2;
+		
+	}
+}
+
+package exception;
+public class MyCalApp
+{
+
+	public static void main(String[] args) 
+                                  {
+		
+		int result;
+		Calculator c=new Calculator();
+		try 
+			{
+			result=c.caldouble(0);
+			//result=c.caldouble(2);
+			System.out.println(result);
+			
+		} catch (Exception e) {
+			
+			System.out.println(e);
+			
+		}
+		System.out.println("Done");
+	}
+
+}
+***********************************************************************************************************************************************************************
+3)create a package called "course" In this package create three classes
+a) Dac    with methods  term1()  and term2()
+b) PreDac with  method  cet()
+c) Basic   with method  finalTest()
+
+Now write application called  "VitaApp" in which call all the methods  of the above mentioned classes.
+
+
+
+package Course;
+
+public class Dac 
+{
+	void term1()
+   {
+	System.out.println("term1");
+   }
+	void term2()
+   {
+		System.out.println("term2");
+   }
+}
+
+
+package Course;
+
+public class PreDac 
+{
+	void cet()
+	{
+		System.out.println("cet");
+	}
+}
+
+
+package Course;
+
+public class Basic 
+{
+	void finalTest()
+	{
+		System.out.println("finaltest");
+	}
+}
+
+
+package Course;
+
+public class VitaApp 
+{
+
+	public static void main(String[] args) 
+	{
+		Dac d = new Dac();
+		PreDac p = new PreDac();
+		Basic b = new Basic();
+		d.term1();
+		d.term2();
+		p.cet();
+		b.finalTest();
+		
+	
+	}
+
+}
+***********************************************************************************************************************************************************************
+/*3)create a package called "course"
+In this package create three classes
+a) Dac    with methods  term1()  and term2()
+b) PreDac with  method  cet()
+c) Basic   with method  finalTest()
+
+Now write application called  "VitaApp" in which call all the methods  of the above mentioned classes.*/
+
+package exception;
+
+public class Dac 
+{
+	public void Term1()
+	{
+		System.out.println("Term1");
+	}
+	public void Term2()
+	{
+		System.out.println("Term2");
+	}
+}
+package exception;
+
+public class PreDac 
+{
+	void cet()
+	{
+		System.out.println("cet");
+	}
+}
+package exception;
+
+public class Basic 
+{
+	void finalTest()
+	{
+		System.out.println("finalTest");
+	}
+}
+package exception;
+
+public class VitaApp 
+{
+
+	public static void main(String[] args) 
+	{
+		Dac d = new Dac();
+		PreDac p = new PreDac();
+		Basic b = new Basic();
+		d.Term1();
+		d.Term2();
+		p.cet();
+		b.finalTest();
+		
+	
+	}
+
+}
+***********************************************************************************************************************************************************************
+4)define a class called as "Item" (Item.java)
+with members
+String itemid;
+String name;
+int cost;
+
+parameterized constructor which will accept above details at the time
+of creating object.
+	member function
+void display()
+which will display all the details of product
+create instances of this class and call the method display.
+
+package exception;
+public class Item 
+{
+
+		String itemid;
+		String name;
+		int cost;
+		/**
+		 * @param itemid
+		 * @param name
+		 * @param cost
+		 */
+		public Item(String itemid, String name, int cost) 
+		{
+		
+			this.itemid = itemid;
+			this.name = name;
+			this.cost = cost;
+		}
+		void display()
+		{
+			System.out.println(itemid+" "+name+" "+cost);
+		}
+		public static void main(String args[])
+		{
+			Item i = new Item("50","Book",500);
+			i.display();
+		}
+}
+
+
+
+
+
+
